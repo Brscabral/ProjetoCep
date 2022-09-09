@@ -1,17 +1,21 @@
 const btn = document.querySelector('#btn');
 const cep = document.querySelector('#cep');
 
+
+const showData = (result)=>{
+ for(const campo in result){
+    if(document.querySelector('#'+campo)){
+        document.querySelector('#'+campo).value = result[campo]
+    }
+ }
+}
+
 btn.addEventListener('click', (e) =>{
     const procura = cep.value.replace("-","");
-    const options={
-        method: 'GET',
-        mode: 'cors',
-        cache: 'defaut'
-
-    }
+  
     fetch(`https://viacep.com.br/ws/${procura}/json/`)
     .then(response => {response.json()
-        .then(data => console.log(data))})
+        .then(data => showData(data))})
     .catch(e => trataErro())
 
                
